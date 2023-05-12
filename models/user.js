@@ -1,8 +1,8 @@
-const {schema, model} = require('mongoose');
+const {Schema, model} = require('mongoose');
 const thoughtSchema = require('./Thought');
 
 
-const studentSchema = new schema(
+const userSchema = new Schema(
     {
         username:{
             type:String,
@@ -12,13 +12,15 @@ const studentSchema = new schema(
         },
         email:{
             type: String,
-            validate: [validator, `/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/`],
+            //this will have to be custom
+            // match:
+            // validate: [validator, `/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/`],
             required: true,
             unique:true,
 
         },
         thoughts: [thoughtSchema],
-        friends: [studentSchema],
+        friends: [userSchema],
     }
 )
 
