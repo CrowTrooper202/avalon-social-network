@@ -9,8 +9,15 @@ const {
     addFriend,
 } =require('../../controllers/userController');
 
-router.route('/').get(getUsers).post(createNewUser).get(getSingleUser).put(updateUser).delete(DeleteUser);
+router.route('/')
+.get(getUsers)
+.post(createNewUser)
+.get(getSingleUser)
+.put(updateUser)
+.delete(DeleteUser);
 
-router.route('/:userId').post(addFriend);
+router.route('/:userId')
+.post(addFriend);
 
-router.route('/:friendId').delete(removeFriend)
+router.route('/:friendId')
+.delete(removeFriend)
