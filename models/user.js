@@ -15,14 +15,36 @@ const userSchema = new Schema(
             //this will have to be custom
             // match:
             // validate: [validator, `/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/`],
+            validate: function(v) {
+                return `/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/`.test(v);
+            },
             required: true,
             unique:true,
-
         },
-        thoughts: [thoughtSchema],
-        friends: [userSchema],
-    }
-)
+        thoughts: [
+            {
+            type:Schema.Types.ObjectId,
+            ref: 'thought',
+        },
+    ],
+
+        friends: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'user',
+            }
+        ],
+    },
+    {
+        toJSON: {
+          virtuals: true,
+        },
+        id: false,
+      }
+);
+userSchema.virtual('friendCount').get(function(){
+    return this.friends.length
+})
 
 const User = model('user', userSchema);
 
