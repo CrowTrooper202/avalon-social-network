@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
 
 module.exports = {
@@ -9,14 +10,14 @@ module.exports = {
             .populate('thoughts')
             .select('-__v')
             .then((user) =>
-                !course ? res.status(404).json({ message: 'No course with that ID' })
-                    : res.json(course))
+                !user ? res.status(404).json({ message: 'No thoughts with that ID' })
+                    : res.json(user))
             .catch((err) => res.status(500).json(err))
             .populate('users')
             .select('-__v')
             .then((user) =>
-                !course ? res.status(404).json({ message: 'No course with that ID' })
-                    : res.json(course))
+                !user ? res.status(404).json({ message: 'No friends with that ID' })
+                    : res.json(user))
             .catch((err) => res.status(500).json(err))
     },
     createNewUser(req, res) {
@@ -34,9 +35,9 @@ module.exports = {
             { runValidators: true, new: true }
         )
             .then((user) =>
-                !course
-                    ? res.status(404).json({ message: 'No course with this id!' })
-                    : res.json(course))
+                !user
+                    ? res.status(404).json({ message: 'No user with this id!' })
+                    : res.json(user))
             .catch((err) => res.status(500).json(err));
     },
     DeleteUser(req, res) {
@@ -44,7 +45,7 @@ module.exports = {
             .then((user) =>
                 !user ? res.json({ message: 'no user by that ID' })
                     : Thought.deleteMany({ _id: { $in: user.thoughts } }))
-            .then(() => res.json({ mesage: 'user and thoughts removed' }))
+            .then(() => res.json({ message: 'user and thoughts removed' }))
             .catch((error) => res.status(500).json(err))
     },
     removeFriend(req, Res) {

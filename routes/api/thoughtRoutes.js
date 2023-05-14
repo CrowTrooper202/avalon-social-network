@@ -6,7 +6,7 @@ const{
     createNewThought,
     updateThought,
     deleteThought,
-    CreateReaction,
+    createReaction,
     deleteReaction,
 } =require('../../controllers/thoughtController')
 
