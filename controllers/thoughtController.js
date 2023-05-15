@@ -23,7 +23,17 @@ module.exports= {
     createNewThought(req, res){
         Thought.create(req.body)
             .then((Thought) => res.Json(Thought))
-            //how to push though into thought's id array
+            //how to push though into user's id array
+            Thought.findOneAndUpdate(
+                {_id: req.params.thoughtId},
+                {$push:{users: {userId: req.param.userId}}},
+                {runValidators: true, new: true}
+            )
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: 'No user with this id!' })
+                    : res.json(user)
+            )
             .catch((err) => {
                 console.log(err);
                 return res.status(500).json(err);
