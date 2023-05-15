@@ -1,9 +1,10 @@
 const { ObjectId } = require('mongoose').Types;
-const { thoughtr, Thought } = require('../models');
+const { User, Thought } = require('../models');
 
 module.exports= {
     getThoughts(req, res){
         Thought.find()
+        .then(results => res.json(results))
         .catch((err) => {
             console.log(err);
             return res.status(500).json(err);
@@ -22,12 +23,13 @@ module.exports= {
     },
     createNewThought(req, res){
         Thought.create(req.body)
-            .then((Thought) => res.Json(Thought))
+            .then((Thought) => {
             //how to push though into user's id array
-            Thought.findOneAndUpdate(
-                {_id: req.params.thoughtId},
-                {$push:{users: {userId: req.param.userId}}},
-                {runValidators: true, new: true}
+            return User.findOneAndUpdate(
+                {_id: req.body.userId},
+                {$push:{thoughts: Thought._id}},
+                {runValidators: true, new: true})
+            }
             )
             .then((user) =>
                 !user

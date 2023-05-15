@@ -23,3 +23,5 @@ router.route('/:userId')
 
 router.route('/:friendId')
 .delete(removeFriend)
+
+module.exports =router

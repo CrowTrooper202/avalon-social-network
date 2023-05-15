@@ -4,6 +4,7 @@ const { User, Thought } = require('../models');
 module.exports = {
     getUsers(req, res) {
         User.find()
+        .then(results => res.json(results))
     },
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.userId })
@@ -22,7 +23,7 @@ module.exports = {
     },
     createNewUser(req, res) {
         User.create(req.body)
-            .then((user) => res.Json(user))
+            .then((user) => res.json(user))
             .catch((err) => {
                 console.log(err);
                 return res.status(500).json(err);
