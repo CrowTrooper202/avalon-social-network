@@ -12,8 +12,11 @@ const{
 
 router.route('/')
 .get(getThoughts)
-.get(getSingularThought)
 .post(createNewThought)
+
+
+router.route('/:thoughtid')
+.get(getSingularThought)
 .put(updateThought)
 .delete(deleteThought)
 

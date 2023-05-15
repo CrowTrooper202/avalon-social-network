@@ -12,7 +12,7 @@ const thoughtSchema = new Schema(
         createdAt:{
             type: Date,
             default: Date.now(),
-            get:obfuscate
+            get:timeStamp=> Date.now(timeStamp.format('MMM DD, YYYY hh:mm'))
         },
         username:{
             type: String,
@@ -29,7 +29,7 @@ const thoughtSchema = new Schema(
       }
 )
 
-userSchema.virtual('reactionCount').get(function(){
+thoughtSchema.virtual('reactionCount').get(function(){
     return this.reactions.length
 })
 

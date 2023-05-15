@@ -12,12 +12,14 @@ const {
 router.route('/')
 .get(getUsers)
 .post(createNewUser)
+
+
+
+router.route('/:userId')
+.post(addFriend)
 .get(getSingleUser)
 .put(updateUser)
 .delete(DeleteUser);
-
-router.route('/:userId')
-.post(addFriend);
 
 router.route('/:friendId')
 .delete(removeFriend)

@@ -1,29 +1,29 @@
-const connection = require('../config/connection');
-const { Course, Student, User, Thought } = require('../models');
-const {getRandomName, getRandomText, getRandomReact} = require('./data')
+// const connection = require('../config/connection');
+// const { Course, Student, User, Thought } = require('../models');
+// const {getRandomName, getRandomText, getRandomReact} = require('./data')
 
-connection.on('error', (err) => err);
+// connection.on('error', (err) => err);
 
-connection.once('open', async ()=>{
-    console.log('connected');
+// connection.once('open', async ()=>{
+//     console.log('connected');
 
-    await User.deleteMany({})
+//     await User.deleteMany({})
 
-    await Thought.deleteMany({})
+//     await Thought.deleteMany({})
 
-    const users =[]
+//     const users =[]
 
-    users.push({
-        username,
-        email,
-        thoughts,
-        friends,
+//     users.push({
+//         username,
+//         email,
+//         thoughts,
+//         friends,
        
-    })
+//     })
 
-    await User.collection.insertMany(students)
-})
+//     await User.collection.insertMany(students)
+// })
 
-console.log(users);
-console.info('seeding complete')
-process.exit(0)
+// console.log(users);
+// console.info('seeding complete')
+// process.exit(0)
