@@ -6,7 +6,7 @@ const{
     createNewThought,
     updateThought,
     deleteThought,
-    createReaction,
+    addReaction,
     deleteReaction,
 } =require('../../controllers/thoughtController')
 
@@ -18,5 +18,5 @@ router.route('/')
 .delete(deleteThought)
 
 router.route('/:thoughtID/reaction')
-.put(CreateReaction)
+.put(addReaction)
 .delete(deleteReaction)
