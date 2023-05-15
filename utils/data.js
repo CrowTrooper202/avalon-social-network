@@ -55,3 +55,5 @@ const getRandomReact = (int) => {
     }
     return results
 }
+
+module.export = {getRandomName, getRandomText, getRandomReact}
