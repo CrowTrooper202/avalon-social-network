@@ -1,9 +1,10 @@
 const { ObjectId } = require('mongoose').Types;
-const { User, Thought } = require('../models');
+const { User, Thought, Reaction } = require('../models');
 
 module.exports= {
     getThoughts(req, res){
         Thought.find()
+        .populate({path: 'reactions'})
         .then(results => res.json(results))
         .catch((err) => {
             console.log(err);
@@ -58,15 +59,13 @@ module.exports= {
             .then((thought) =>
                 !thought ? res.json({ message: 'no thought by that ID' })
                     : Reaction.deleteMany({ _id: { $in: thought.reactions } }))
-            .then(() => res.json({ message: 'thought and reactionss removed' }))
-            .catch((error) => res.status(500).json(err))
+            .then(() => res.json({ message: 'thought and reactions removed' }))
+            .catch((err) => res.status(500).json(err))
     },
-    addReaction(req, res){
-        console.log('you are adding a reaction');
-        console.log(req.body);
+    addReaction({params, body}, res){
         Thought.findOneAndUpdate(
-            {_id:req.params.thoughtId},
-            {$addToSet: {reactions:req.body}},
+            {_id: params.thoughtId},
+            {$push: { reactions: {body} }},
             {runValidators:true, new: true}
         )
         .then((thought)=>

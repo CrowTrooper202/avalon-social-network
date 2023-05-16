@@ -4,22 +4,17 @@ const { User, Thought } = require('../models');
 module.exports = {
     getUsers(req, res) {
         User.find()
-        .then(results => res.json(results))
+            .then(results => res.json(results))
     },
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.userId })
-            .populate('thoughts')
-            .select('-__v')
+            .populate({ path: 'friends', populate: { path: 'friends' }, select: ('-__v') })
+            .populate({path: 'thoughts', populate: { path:'reactions'}, select: ('-__v')})
             .then((user) =>
                 !user ? res.status(404).json({ message: 'No thoughts with that ID' })
                     : res.json(user))
             .catch((err) => res.status(500).json(err))
-            .populate('users')
-            .select('-__v')
-            .then((user) =>
-                !user ? res.status(404).json({ message: 'No friends with that ID' })
-                    : res.json(user))
-            .catch((err) => res.status(500).json(err))
+      
     },
     createNewUser(req, res) {
         User.create(req.body)
@@ -47,12 +42,12 @@ module.exports = {
                 !user ? res.json({ message: 'no user by that ID' })
                     : Thought.deleteMany({ _id: { $in: user.thoughts } }))
             .then(() => res.json({ message: 'user and thoughts removed' }))
-            .catch((error) => res.status(500).json(err))
+            .catch((err) => res.status(500).json(err))
     },
     removeFriend(req, Res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
-            { $pull: { friends: { friendId: req.params.friendId } } },
+            { $pull: { friends: { _id: req.params.friendId } } },
             { runValidators: true, new: true }
         )
             .then((user) =>
@@ -65,14 +60,14 @@ module.exports = {
     addFriend(req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
-            { $addToSet: { friends: req.body } },
+            { $addToSet: { friends: req.body.friends } },
             { runValidators: true, new: true }
         )
-        .then((user) =>
-        !user
-            ? res.status(404).json({ message: 'No user with this id!' })
-            : res.json(user)
-    )
-    .catch((err) => res.status(500).json(err));
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: 'No user with this id!' })
+                    : res.json(user)
+            )
+            .catch((err) => res.status(500).json(err));
     }
 }
