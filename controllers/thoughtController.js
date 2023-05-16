@@ -25,7 +25,6 @@ module.exports= {
     createNewThought(req, res){
         Thought.create(req.body)
             .then((Thought) => {
-            //how to push though into user's id array
             return User.findOneAndUpdate(
                 {_id: req.body.userId},
                 {$push:{thoughts: Thought._id}},

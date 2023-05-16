@@ -18,14 +18,14 @@
 ## Installation
 
 - it is necessary to npm install prior to running either nodemon or node to activate the server.
-[CrowTrooper202](https://crowtrooper202.github.io/work-day-scheduler/)
+[CrowTrooper202](https://github.com/CrowTrooper202/avalon-social-network)
 
 
 ## Usage
 
 
-
-![day scheduler](./pictures/day-scheduler.PNG)
+[video demo](https://drive.google.com/file/d/1TBMtyiW7cEh4Iux4MMQS8B5Had2ZQnDy/view)
+![Avalon social network](./pictures/avalon-social.PNG)
 
 
 
