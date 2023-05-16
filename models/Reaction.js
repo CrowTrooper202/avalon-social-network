@@ -2,10 +2,11 @@ const { Schema, Types } = require('mongoose');
 
 const reactionSchema = new Schema(
     {
-        reactionID: {
-            type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId(),
-        },
+        // reactionID: {
+        //     type: Schema.Types.ObjectId,
+        //     default: () => new Types.ObjectId(),
+        //     required: true
+        // },
         reactionBody:{
             type: String,
             required: true,
@@ -25,7 +26,7 @@ const reactionSchema = new Schema(
         toJSON: {
           getters: true,
         },
-        id: false,
+        // id: false,
       }
 )
 

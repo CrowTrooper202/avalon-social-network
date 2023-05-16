@@ -16,13 +16,13 @@ router.route('/')
 
 
 router.route('/:userId')
-.put(addFriend)
+
 .get(getSingleUser)
 .put(updateUser)
 .delete(DeleteUser)
 
-
-router.route('/userId/:friendId')
+router.route('/:userId/friend/:friendId')
 .delete(removeFriend)
+.put(addFriend)
 
 module.exports =router
