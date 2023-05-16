@@ -20,7 +20,7 @@ router.route('/:userId')
 .get(getSingleUser)
 .put(updateUser)
 .delete(DeleteUser)
-// .delete(removeFriend);
+
 
 router.route('/userId/:friendId')
 .delete(removeFriend)

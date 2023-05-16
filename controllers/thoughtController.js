@@ -62,10 +62,10 @@ module.exports= {
             .then(() => res.json({ message: 'thought and reactions removed' }))
             .catch((err) => res.status(500).json(err))
     },
-    addReaction({params, body}, res){
+    addReaction(req, res){
         Thought.findOneAndUpdate(
-            {_id: params.thoughtId},
-            {$push: { reactions: {body} }},
+            {_id: req.params.thoughtId},
+            {$push: { reactions: req.body }},
             {runValidators:true, new: true}
         )
         .then((thought)=>
